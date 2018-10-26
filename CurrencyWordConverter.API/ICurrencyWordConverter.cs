@@ -12,6 +12,6 @@ namespace CurrencyWordConverter.API
 	public interface ICurrencyWordConverter
 	{
 		[OperationContract]
-		string ConvertCurrency(double value);
+		string ConvertCurrency(double value, string currencySign);
 	}
 }

@@ -11,10 +11,10 @@ namespace CurrencyWordConverter.API
 {
 	public class CurrencyWordConverter : ICurrencyWordConverter
 	{
-		public string ConvertCurrency(double value)
+		public string ConvertCurrency(double value, string currencySign)
 		{
 			var currencyWordConverter = new CurrencyToWordConverter();
-			return currencyWordConverter.ConvertCurrencyToWord(value, "$");
+			return currencyWordConverter.ConvertCurrencyToWord(value, currencySign);
 		}
 	}
 }

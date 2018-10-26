@@ -25,7 +25,7 @@ namespace CurrencyWordPresenter.ViewModel
 				if (_isInValid != value)
 				{
 					_isInValid = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsValid"));
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsInValid"));
 				}
 			}
 		}
@@ -46,6 +46,23 @@ namespace CurrencyWordPresenter.ViewModel
 			}
 		}
 
+		private string _selectedCurrencySign;
+		public string SelectedCurrencySign
+		{
+			get
+			{
+				return _selectedCurrencySign;
+			}
+			set
+			{
+				if (_selectedCurrencySign != value)
+				{
+					_selectedCurrencySign = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedCurrencySign"));
+				}
+			}
+		}
+
 		public RelayCommand ConvertNumer { get; set; }
 		public ObservableCollection<string> CurrencySing { get; set; }
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -53,7 +70,7 @@ namespace CurrencyWordPresenter.ViewModel
 		public CurrencyWordConverterViewModel()
 		{
 			IsInValid = false;
-
+			SelectedCurrencySign = "$";
 			CurrencySing = new ObservableCollection<string>
 			{
 				"$",
@@ -69,7 +86,7 @@ namespace CurrencyWordPresenter.ViewModel
 			if (Double.TryParse(numberToConvert.ToString(), out double value))
 			{
 				IsInValid = false;
-				ResultString = currecnyConverterClient.ConvertCurrency(value);
+				ResultString = currecnyConverterClient.ConvertCurrency(value, SelectedCurrencySign);
 				return;
 			}
 

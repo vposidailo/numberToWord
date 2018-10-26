@@ -16,10 +16,10 @@ namespace CurrencyWordPresenter.CurrencyWordConverter {
     public interface ICurrencyWordConverter {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICurrencyWordConverter/ConvertCurrency", ReplyAction="http://tempuri.org/ICurrencyWordConverter/ConvertCurrencyResponse")]
-        string ConvertCurrency(double value);
+        string ConvertCurrency(double value, string currencySign);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICurrencyWordConverter/ConvertCurrency", ReplyAction="http://tempuri.org/ICurrencyWordConverter/ConvertCurrencyResponse")]
-        System.Threading.Tasks.Task<string> ConvertCurrencyAsync(double value);
+        System.Threading.Tasks.Task<string> ConvertCurrencyAsync(double value, string currencySign);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +49,12 @@ namespace CurrencyWordPresenter.CurrencyWordConverter {
                 base(binding, remoteAddress) {
         }
         
-        public string ConvertCurrency(double value) {
-            return base.Channel.ConvertCurrency(value);
+        public string ConvertCurrency(double value, string currencySign) {
+            return base.Channel.ConvertCurrency(value, currencySign);
         }
         
-        public System.Threading.Tasks.Task<string> ConvertCurrencyAsync(double value) {
-            return base.Channel.ConvertCurrencyAsync(value);
+        public System.Threading.Tasks.Task<string> ConvertCurrencyAsync(double value, string currencySign) {
+            return base.Channel.ConvertCurrencyAsync(value, currencySign);
         }
     }
 }

@@ -11,23 +11,28 @@ namespace NumbersToWordPresentatConverter
 	{
 		public string ConvertCurrencyToWord(double number, string currencySign)
 		{
-			string[] numberArray = number.ToString().Split(',');
+			string[] numberArray = number.ToString("0.00").Split(',');
 			CurrencyMapper.CurrecySignToWord.TryGetValue(currencySign, out CurrencyWord currencyWord);
 
-			string noteDelimitter = Convert.ToInt32(numberArray[0]) == 1 
+			string noteDelimitter = Convert.ToInt32(numberArray[0]) == 1
 				? currencyWord.NoteSingle
 				: currencyWord.NotePlural;
 
-			string centDelimitter = numberArray.Count() == 2 && Convert.ToInt32(numberArray[1]) == 1 
-				? currencyWord.CoinSingle
-				: currencyWord.CoinPlural;
+			string centDelimitter = string.Empty;
+			if (int.TryParse(numberArray[1], out int centValue)
+				&& centValue != 0)
+			{
+				centDelimitter = centValue == 1
+					? currencyWord.CoinSingle
+					: currencyWord.CoinPlural;
+			}
 
-			return numberArray.Count() == 2
-				? $"{ConverDollars(Convert.ToInt32(numberArray[0]))} {noteDelimitter} and {ConvertHundred(Convert.ToInt32(numberArray[1]))} {centDelimitter}"
-				: $"{ConverDollars(Convert.ToInt32(numberArray[0]))} {noteDelimitter}";
+			return !string.IsNullOrEmpty(centDelimitter)
+				? $"{ConverMillionAndThousand(Convert.ToInt32(numberArray[0]))} {noteDelimitter} and {ConvertHundred(Convert.ToInt32(numberArray[1]))} {centDelimitter}"
+				: $"{ConverMillionAndThousand(Convert.ToInt32(numberArray[0]))} {noteDelimitter}";
 		}
 
-		public string ConverDollars(int amount)
+		private string ConverMillionAndThousand(int amount)
 		{
 			string returnString = string.Empty;
 			if (amount == 0)
@@ -37,22 +42,22 @@ namespace NumbersToWordPresentatConverter
 
 			if (amount / 1000000 > 0)
 			{
-				returnString += string.Format($"{ConvertHundred(amount / 1000000)} million");
+				returnString += string.Format($"{ConvertHundred(amount / 1000000)} million ");
 				amount %= 1000000;
 			}
 
 			if (amount / 1000 > 0)
 			{
-				returnString += string.Format($"{ConvertHundred(amount / 1000)} thousand");
+				returnString += string.Format($"{ConvertHundred(amount / 1000)} thousand ");
 				amount %= 1000;
 			}
 
 			return amount != 0
 				? returnString += string.Format($"{ConvertHundred(amount)}")
-				: returnString;
+				: returnString.TrimEnd();
 		}
 
-		public string ConvertHundred(int number)
+		private string ConvertHundred(int number)
 		{
 			if(NumberToWordMapper.NumberToWord.TryGetValue(number, out string wordValue))
 			{

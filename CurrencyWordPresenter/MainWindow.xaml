@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CurrencyWordPresenter"
 		xmlns:vm="clr-namespace:CurrencyWordPresenter.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="110" Width="400"
+        Title="Currency to word converter" Height="130" Width="400"
 		ResizeMode="NoResize"
 		DataContext="{DynamicResource CurrencyWordConverterViewModel}">
 	<Window.Resources>
@@ -25,15 +24,15 @@
 			<ColumnDefinition Width="5*" />
 			<ColumnDefinition Width="35*" />
 		</Grid.ColumnDefinitions>
-		<TextBlock Name="CurrencyLabelValidation" Grid.Row="0" Grid.Column="2" Text="*Incorrect currency format." Foreground="Red" Visibility="{Binding IsInValid, Converter={StaticResource BooleanToVisible} }" Margin="10, 0, 0, 0">Currency</TextBlock>
+		<TextBlock Name="CurrencyLabelValidation" Grid.Row="0" Grid.Column="2" Text="*Incorrect currency format. " Foreground="Red" Visibility="{Binding IsInValid, Converter={StaticResource BooleanToVisible} }" Margin="10, 0, 0, 0">Currency</TextBlock>
 		<TextBlock Name="CurrencyLabel" Grid.Row="1" Grid.Column="0" Margin="10, 0, 0, 0">Currency</TextBlock>
-		<ComboBox 
+		<ComboBox
 			x:Name="CurrencySingList"
 			Grid.Row="1"
 			Grid.Column="1"
 			Margin="1,0,1,0"
 			ItemsSource="{Binding CurrencySing}"
-			SelectedIndex="0">
+			SelectedValue="{Binding SelectedCurrencySign}">
 		</ComboBox>
 		<TextBox
 			Name="CurrencyValue"
@@ -43,7 +42,7 @@
 		</TextBox>
 		<TextBlock Grid.Row="2" Grid.Column="0" Margin="10, 0, 0, 0">Output:</TextBlock>
 		<TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ResultString, Mode=OneWay}"></TextBlock>
-		<Button 
+		<Button
 			x:Name="InitConvertProcess"
 			Grid.Row="3"
 			Grid.Column="2"

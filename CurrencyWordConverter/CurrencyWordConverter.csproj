@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Converter\ICurrencyToWordConverter.cs" />
     <Compile Include="Converter\CurrencyToWordConverter.cs" />
+    <Compile Include="Mapper\CurrencyMapper.cs" />
     <Compile Include="Mapper\NumberToWordMapper.cs" />
+    <Compile Include="Model\CurrencyWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
