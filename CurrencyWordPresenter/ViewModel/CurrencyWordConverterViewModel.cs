@@ -13,6 +13,8 @@ namespace CurrencyWordPresenter.ViewModel
 {
 	public class CurrencyWordConverterViewModel : INotifyPropertyChanged
 	{
+		private const double MaxCurrencyValue = 999999999.99;
+
 		private bool _isInValid;
 		public bool IsInValid
 		{
@@ -83,7 +85,8 @@ namespace CurrencyWordPresenter.ViewModel
 		public void ConvertNumerToText(object numberToConvert)
 		{
 			var currecnyConverterClient = new CurrencyWordConverterClient();
-			if (Double.TryParse(numberToConvert.ToString(), out double value))
+			if (Double.TryParse(numberToConvert.ToString(), out double value)
+				&& value < MaxCurrencyValue)
 			{
 				IsInValid = false;
 				ResultString = currecnyConverterClient.ConvertCurrency(value, SelectedCurrencySign);
